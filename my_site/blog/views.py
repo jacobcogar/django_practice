@@ -7,7 +7,7 @@ from django.urls import reverse
 
 
 def starting_page(request):
-    pass
+    return render(request, 'blog/index.html') # will render the starting page layout from template index.html
 
 def posts(requests):
     pass
