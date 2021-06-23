@@ -20,9 +20,9 @@ class Book(models.Model):
         return reverse("book-detail", args=[self.slug])
 
 
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
-        super().save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     self.slug = slugify(self.title)
+    #     super().save(*args, **kwargs)
 
 
     def __str__(self): # method exists for every class in python. Can be overriden for changes to display
