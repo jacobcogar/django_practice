@@ -6,11 +6,21 @@ from django.utils.text import slugify
 
 # Create your models here.
 
+class Author(models.Model):
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+
+    def full_name(self):
+        return f"{self.first_name} {self.last_name}"
+
+    def __str__(self):
+        return self.full_name()
+
 class Book(models.Model):
     title = models.CharField(max_length=50)
     rating = models.IntegerField(
         validators=[MinValueValidator(1), MaxValueValidator(5)])
-    author = models.CharField(null=True, max_length=100) #or can put blank=True to allow blank entries in the field. Not allowed by default.
+    author = models.ForeignKey(Author, on_delete=models.CASCADE, null=True, related_name="books") # or PROTECT or SETNULL
     is_bestselling_book = models.BooleanField(default=False)
     slug = models.SlugField(default="", null=False, db_index=True) # Harry Potter 1 => harry-potter-1
 
