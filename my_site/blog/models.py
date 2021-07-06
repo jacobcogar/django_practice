@@ -11,8 +11,11 @@ class Author(models.Model):
     last_name = models.CharField(max_length=100)
     email_address = models.EmailField(max_length=100)
 
+    def full_name(self):
+        return f"{self.first_name} {self.last_name}"
+
     def __str__(self):
-        return f"{self.first_name}, {self.last_name}"
+        return self.full_name()
 
 
 class Tag(models.Model):
@@ -38,7 +41,6 @@ class Post(models.Model):
     def get_absolute_url(self):
         return reverse("model_detail", kwargs={"pk": self.pk})
     
-
     def __str__(self):
         return f"{self.title}, {self.date}"
 
