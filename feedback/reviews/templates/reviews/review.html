@@ -1,21 +1,12 @@
-{% load static %}
+{% extends "reviews/base.html" %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Review</title>
-    <link rel="stylesheet" href="{% static "reviews/styles.css" %}">
-</head>
-<body>
+
+{% block title %}Your Review{% endblock %}
+
+{% block content %}
     <form action="/" method="POST"> 
     {% comment %} default method is "GET". Post resulted in CSRF error but needed for writing data. Need dynamic token to make work. {% endcomment %}
         {% csrf_token %}
-        {% comment %} {% if has_error %}
-            <p>This form is invalid - please enter a valid username!</p>
-        {% endif %} {% endcomment %}
 
         {% for field in form %}
             <div class="form-control {% if field.errors %} errors {% endif %}">
@@ -26,32 +17,6 @@
         {% endfor %}
 
         <button type="submit">Send</button>
-
-        {% comment %} <div class="form-control {% if form.user_name.errors %} errors {% endif %}">
-            {{ form.user_name.label_tag }}
-            {{ form.user_name }}
-            {{ form.user_name.errors }}
-        </div>
-
-        <div class="form-control {% if form.review_text.errors %} errors {% endif %}">
-            {{ form.review_text.label_tag }}
-            {{ form.review_text }}
-            {{ form.review_text.errors }}
-        </div>
-
-        <div class="form-control {% if form.rating.errors %} errors {% endif %}">
-            {{ form.rating.label_tag }}
-            {{ form.rating }}
-            {{ form.rating.errors }}
-        </div> {% endcomment %}
-
-
-        {% comment %} <label for="username">Your name</label>
-        <input id="username" name="username" type="text"> {% endcomment %}
-
-        {% comment %} name field could have different value. Does not have to be "username" {% endcomment %}
-
         {% comment %} type "submit" is the default. Could also be "button". Submit sends it to server via Get request. {% endcomment %}
     </form>
-</body>
-</html>
+{% endblock %}
